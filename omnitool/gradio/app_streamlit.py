@@ -21,11 +21,11 @@ from anthropic.types.tool_use_block import ToolUseBlock
 import requests
 from requests.exceptions import RequestException
 
-from loop import (
+from .loop import (
     APIProvider,
     sampling_loop_sync,
 )
-from tools import ToolResult
+from .tools import ToolResult
 
 # Constants and configurations
 CONFIG_DIR = Path("~/.anthropic").expanduser()

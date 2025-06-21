@@ -7,15 +7,16 @@ transformers
 ultralytics==8.3.70
 azure-identity
 numpy==1.26.4
+pandas>=2.0.0
 opencv-python
 opencv-python-headless
-gradio
+gradio==4.15.0
 dill
 accelerate
 timm
 einops==0.8.0
 paddlepaddle
-paddleocr
+paddleocr==3.0.0
 ruff==0.6.7
 pre-commit==3.8.0
 pytest==8.3.3
@@ -30,3 +31,4 @@ screeninfo
 uiautomation
 dashscope
 groq
+tokenizers>=0.15.0

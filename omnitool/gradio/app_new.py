@@ -20,11 +20,11 @@ from anthropic import APIResponse
 from anthropic.types import TextBlock
 from anthropic.types.beta import BetaMessage, BetaTextBlock, BetaToolUseBlock
 from anthropic.types.tool_use_block import ToolUseBlock
-from loop import (
+from .loop import (
     APIProvider,
     sampling_loop_sync,
 )
-from tools import ToolResult
+from .tools import ToolResult
 import requests
 from requests.exceptions import RequestException
 import base64

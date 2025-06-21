@@ -471,9 +471,38 @@ def get_som_labeled_img(image_source: Union[str, Image.Image], model=None, BOX_T
     
     # draw boxes
     if draw_bbox_config:
-        annotated_frame, label_coordinates = annotate(image_source=image_source, boxes=filtered_boxes, logits=logits, phrases=phrases, **draw_bbox_config)
+        # Filter out parameters that are not accepted by annotate() function
+        valid_annotate_params = ['text_scale', 'text_padding', 'text_thickness', 'thickness']
+        filtered_config = {k: v for k, v in draw_bbox_config.items() if k in valid_annotate_params}
+        # Ensure text_scale is provided, use default if not in config
+        if 'text_scale' not in filtered_config:
+            filtered_config['text_scale'] = text_scale
+        
+        # Extract parameters for positional arguments
+        text_scale_val = filtered_config.get('text_scale', text_scale)
+        text_padding_val = filtered_config.get('text_padding', 5)
+        text_thickness_val = filtered_config.get('text_thickness', 2)
+        thickness_val = filtered_config.get('thickness', 3)
+        
+        annotated_frame, label_coordinates = annotate(
+            image_source=image_source, 
+            boxes=filtered_boxes, 
+            logits=logits, 
+            phrases=phrases, 
+            text_scale=text_scale_val,
+            text_padding=text_padding_val,
+            text_thickness=text_thickness_val,
+            thickness=thickness_val
+        )
     else:
-        annotated_frame, label_coordinates = annotate(image_source=image_source, boxes=filtered_boxes, logits=logits, phrases=phrases, text_scale=text_scale, text_padding=text_padding)
+        annotated_frame, label_coordinates = annotate(
+            image_source=image_source, 
+            boxes=filtered_boxes, 
+            logits=logits, 
+            phrases=phrases, 
+            text_scale=text_scale, 
+            text_padding=text_padding
+        )
     
     pil_img = Image.fromarray(annotated_frame)
     buffered = io.BytesIO()

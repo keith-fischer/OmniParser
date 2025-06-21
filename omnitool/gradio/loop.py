@@ -13,13 +13,13 @@ from anthropic.types.beta import (
     BetaMessage,
     BetaMessageParam
 )
-from tools import ToolResult
+from .tools import ToolResult
 
-from agent.llm_utils.omniparserclient import OmniParserClient
-from agent.anthropic_agent import AnthropicActor
-from agent.vlm_agent import VLMAgent
-from agent.vlm_agent_with_orchestrator import VLMOrchestratedAgent
-from executor.anthropic_executor import AnthropicExecutor
+from .agent.llm_utils.omniparserclient import OmniParserClient
+from .agent.anthropic_agent import AnthropicActor
+from .agent.vlm_agent import VLMAgent
+from .agent.vlm_agent_with_orchestrator import VLMOrchestratedAgent
+from .executor.anthropic_executor import AnthropicExecutor
 
 BETA_FLAG = "computer-use-2024-10-22"
 

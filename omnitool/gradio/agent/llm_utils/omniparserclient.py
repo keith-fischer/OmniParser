@@ -1,8 +1,8 @@
 import requests
 import base64
 from pathlib import Path
-from tools.screen_capture import get_screenshot
-from agent.llm_utils.utils import encode_image
+from ...tools.screen_capture import get_screenshot
+from .utils import encode_image
 
 OUTPUT_DIR = "./tmp/outputs"
 

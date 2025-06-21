@@ -10,9 +10,9 @@ from anthropic import APIResponse
 from anthropic.types import ToolResultBlockParam
 from anthropic.types.beta import BetaMessage, BetaTextBlock, BetaToolUseBlock, BetaMessageParam, BetaUsage
 
-from agent.llm_utils.oaiclient import run_oai_interleaved
-from agent.llm_utils.groqclient import run_groq_interleaved
-from agent.llm_utils.utils import is_image_path
+from .llm_utils.oaiclient import run_oai_interleaved
+from .llm_utils.groqclient import run_groq_interleaved
+from .llm_utils.utils import is_image_path
 import time
 import re
 
