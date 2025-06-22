@@ -25,8 +25,50 @@
 - [2024/09] OmniParser achieves the best performance on [Windows Agent Arena](https://microsoft.github.io/WindowsAgentArena/)! 
 
 ## Install 
+
+### Quick Installation (Recommended)
+
+**For Mac/Linux:**
+```bash
+git clone https://github.com/microsoft/OmniParser.git
+cd OmniParser
+chmod +x install.sh
+./install.sh
+```
+
+**For Windows:**
+```cmd
+git clone https://github.com/microsoft/OmniParser.git
+cd OmniParser
+install.bat
+```
+
+### Manual Installation
+
 First clone the repo, and then install environment:
-```python
+
+**Option 1: Auto-detection (Recommended)**
+```bash
+cd OmniParser
+python install_dependencies.py
+```
+
+**Option 2: Platform-specific requirements**
+```bash
+cd OmniParser
+# For Mac
+pip install -r requirements_mac.txt
+
+# For Windows (with CUDA)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install -r requirements_windows.txt
+
+# For Linux
+pip install -r requirements.txt
+```
+
+**Option 3: Legacy conda installation**
+```bash
 cd OmniParser
 conda create -n "omni" python==3.12
 conda activate omni

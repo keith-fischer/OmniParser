@@ -261,14 +261,14 @@ def run_omniparse(box: float, iou: float):
     parser.add_argument(
         "--input_dir", 
         type=str, 
-        default="/Users/fischtech/repos/github/ollamapoc/image/TSS",
-        help="Directory containing PNG images to process (default: /Users/fischtech/repos/github/OmniParser/imgs)"
+        default="./input_images",
+        help="Directory containing PNG images to process (default: ./input_images)"
     )
     parser.add_argument(
         "--output_dir", 
         type=str, 
-        default="/Users/fischtech/repos/github/OmniParser/output",
-        help="Directory to save processed results (default: /Users/fischtech/repos/github/OmniParser/output)"
+        default="./output",
+        help="Directory to save processed results (default: ./output)"
     )
     parser.add_argument(
         "--box_threshold", 
@@ -617,7 +617,7 @@ def main():
         "ascii_table_report": table_report
     }
     
-    output_dir = Path("/Users/fischtech/repos/github/OmniParser/output")
+    output_dir = Path("./output")
     comprehensive_summary_path = output_dir / f"comprehensive_testing_summary_{get_datetime_prefix()}.json"
     
     with open(comprehensive_summary_path, 'w', encoding='utf-8') as f:
