@@ -1,0 +1,142 @@
+============================================================
+SUMMARY STATISTICS
+============================================================
+Total successful tests: 100
+Total images processed: 1
+
+Detected Elements Statistics:
+  Min: 71
+  Max: 113
+  Average: 78.48
+  Total across all tests: 7848
+
+OCR Text Statistics:
+  Min: 52
+  Max: 52
+  Average: 52.00
+  Total across all tests: 5200
+
+Top 5 combinations by detected elements:
+  1. Box=0.01, IoU=0.46, Elements=113, OCR=52
+  2. Box=0.01, IoU=0.21, Elements=112, OCR=52
+  3. Box=0.01, IoU=0.26, Elements=112, OCR=52
+  4. Box=0.01, IoU=0.31, Elements=112, OCR=52
+  5. Box=0.01, IoU=0.36, Elements=112, OCR=52
+
+Top 5 combinations by OCR text:
+  1. Box=0.01, IoU=0.01, Elements=105, OCR=52
+  2. Box=0.01, IoU=0.06, Elements=108, OCR=52
+  3. Box=0.01, IoU=0.11, Elements=111, OCR=52
+  4. Box=0.01, IoU=0.16, Elements=111, OCR=52
+  5. Box=0.01, IoU=0.21, Elements=112, OCR=52
+
+================================================================================
+DETAILED RESULTS TABLE
+================================================================================
+| Box  | IoU  | Detected Elements | OCR Text | Image Name        |
+| ----- | ----- | ------------------ | --------- | ------------------ |
+| 0.01 | 0.01 | 105               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.06 | 108               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.11 | 111               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.16 | 111               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.21 | 112               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.26 | 112               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.31 | 112               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.36 | 112               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.41 | 112               | 52       | TSS-TC-16-screen8 |
+| 0.01 | 0.46 | 113               | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.01 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.06 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.11 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.16 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.21 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.26 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.31 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.36 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.41 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.06 | 0.46 | 85                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.01 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.06 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.11 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.16 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.21 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.26 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.31 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.36 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.41 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.11 | 0.46 | 80                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.01 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.06 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.11 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.16 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.21 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.26 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.31 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.36 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.41 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.16 | 0.46 | 76                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.01 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.06 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.11 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.16 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.21 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.26 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.31 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.36 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.41 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.21 | 0.46 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.01 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.06 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.11 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.16 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.21 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.26 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.31 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.36 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.41 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.26 | 0.46 | 74                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.01 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.06 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.11 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.16 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.21 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.26 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.31 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.36 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.41 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.31 | 0.46 | 72                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.01 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.06 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.11 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.16 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.21 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.26 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.31 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.36 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.41 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.36 | 0.46 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.01 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.06 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.11 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.16 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.21 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.26 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.31 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.36 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.41 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.41 | 0.46 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.01 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.06 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.11 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.16 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.21 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.26 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.31 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.36 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.41 | 71                | 52       | TSS-TC-16-screen8 |
+| 0.46 | 0.46 | 71                | 52       | TSS-TC-16-screen8 |
+
+Comprehensive testing summary saved to: /Users/fischtech/repos/github/OmniParser/output/comprehensive_testing_summary_20250622_134359.json
+Parameter sweep testing completed!
+(base) fischtech@keiths-MBP OmniParser % 
+

@@ -170,6 +170,7 @@ def process_single_image(
 
 def process_batch(
     input_dir: Path,
+    img_filter: str,
     output_dir: Path,
     datetime_prefix: str,
     box_threshold: float = 0.10,
@@ -184,7 +185,7 @@ def process_batch(
         List of processing results for each image
     """
     # Find all PNG files
-    png_files = list(input_dir.glob("*TSS-TC-16-screen8.png"))
+    png_files = list(input_dir.glob(img_filter))
     
     if not png_files:
         print(f"No PNG files found in {input_dir}")
@@ -255,96 +256,6 @@ def save_batch_summary(results: List[Dict[str, Any]], output_dir: Path, datetime
     print(f"Successful: {len(successful)}")
     print(f"Failed: {len(failed)}")
 
-
-def run_omniparse(box: float, iou: float):
-    parser = argparse.ArgumentParser(description="Batch process PNG images with OmniParser")
-    parser.add_argument(
-        "--input_dir", 
-        type=str, 
-        default="./input_images",
-        help="Directory containing PNG images to process (default: ./input_images)"
-    )
-    parser.add_argument(
-        "--output_dir", 
-        type=str, 
-        default="./output",
-        help="Directory to save processed results (default: ./output)"
-    )
-    parser.add_argument(
-        "--box_threshold", 
-        type=float, 
-        default=box,
-        help="Box detection threshold (default: 0.15)"
-    )
-    parser.add_argument(
-        "--iou_threshold", 
-        type=float, 
-        default=iou,
-        help="IoU threshold for overlap removal (default: 0.15)"
-    )
-    parser.add_argument(
-        "--use_paddleocr", 
-        action="store_true",
-        default=True,
-        help="Use PaddleOCR for text detection (default: True)"
-    )
-    parser.add_argument(
-        "--imgsz", 
-        type=int, 
-        default=3000,
-        help="Image size for processing (default: 1000)"
-    )
-    
-    args = parser.parse_args()
-    
-    # Override with the passed parameters
-    args.box_threshold = box
-    args.iou_threshold = iou
-    
-    # Convert to Path objects
-    input_dir = Path(args.input_dir)
-    output_dir = Path(args.output_dir)
-    
-    # Get datetime prefix for this batch run
-    datetime_prefix = get_datetime_prefix()
-    
-    # Validate input directory
-    if not input_dir.exists():
-        print(f"Error: Input directory '{input_dir}' does not exist")
-        return
-    
-    if not input_dir.is_dir():
-        print(f"Error: '{input_dir}' is not a directory")
-        return
-    
-    # Create output directory
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    print(f"Input directory: {input_dir}")
-    print(f"Output directory: {output_dir}")
-    print(f"Datetime prefix: {datetime_prefix}")
-    print(f"Processing parameters:")
-    print(f"  Box threshold: {args.box_threshold}")
-    print(f"  IoU threshold: {args.iou_threshold}")
-    print(f"  Use PaddleOCR: {args.use_paddleocr}")
-    print(f"  Image size: {args.imgsz}")
-    
-    # Process the batch
-    results = process_batch(
-        input_dir,
-        output_dir,
-        datetime_prefix,
-        args.box_threshold,
-        args.iou_threshold,
-        args.use_paddleocr,
-        args.imgsz
-    )
-    
-    # Save summary
-    save_batch_summary(results, output_dir, datetime_prefix)
-    
-    print("\nBatch processing completed!")
-    return results
 
 def create_ascii_table_report(all_results: List[Dict[str, Any]]) -> str:
     """
@@ -497,6 +408,109 @@ def print_accumulated_stats(all_results: List[Dict[str, Any]], current_box: floa
     print(table_report)
     print(f"{'='*80}")
 
+def run_omniparse(
+    img_path: str="./imgs",
+img_filter:str="*.png",
+out_dir: str="./output",
+box: float=0.05, 
+iou: float=0.05,
+img_size: int=3000
+):
+    parser = argparse.ArgumentParser(description="Batch process PNG images with OmniParser")
+    parser.add_argument(
+        "--img_dir", 
+        type=str, 
+        default=img_path,
+        help="Directory containing PNG images to process (default: ./input_images)"
+    )
+    parser.add_argument(
+        "--img_filter", 
+        type=str, 
+        default=img_filter,
+        help="Directory containing PNG images to filter (default: *.png)"
+    )
+    parser.add_argument(
+        "--output_dir", 
+        type=str, 
+        default=out_dir,
+        help="Directory to save processed results (default: ./output)"
+    )
+    parser.add_argument(
+        "--box_threshold", 
+        type=float, 
+        default=box,
+        help="Box detection threshold (default: 0.15)"
+    )
+    parser.add_argument(
+        "--iou_threshold", 
+        type=float, 
+        default=iou,
+        help="IoU threshold for overlap removal (default: 0.15)"
+    )
+    parser.add_argument(
+        "--use_paddleocr", 
+        action="store_true",
+        default=True,
+        help="Use PaddleOCR for text detection (default: True)"
+    )
+    parser.add_argument(
+        "--imgsz", 
+        type=int, 
+        default=img_size,
+        help="Image size for processing (default: 1000)"
+    )
+    
+    args = parser.parse_args()
+    
+
+    # Convert to Path objects
+    input_dir = Path(args.img_dir)
+    output_dir = Path(args.output_dir)
+    img_filter=args.img_filter
+    
+    # Get datetime prefix for this batch run
+    datetime_prefix = get_datetime_prefix()
+    
+    # Validate input directory
+    if not input_dir.exists():
+        print(f"Error: Input directory '{input_dir}' does not exist")
+        return
+    
+    if not input_dir.is_dir():
+        print(f"Error: '{input_dir}' is not a directory")
+        return
+    
+    # Create output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    print(f"Input directory: {input_dir}")
+    print(f"Output directory: {output_dir}")
+    print(f"Image filter: {img_filter}")
+    print(f"Datetime prefix: {datetime_prefix}")
+    print(f"Processing parameters:")
+    print(f"  Box threshold: {args.box_threshold}")
+    print(f"  IoU threshold: {args.iou_threshold}")
+    print(f"  Use PaddleOCR: {args.use_paddleocr}")
+    print(f"  Image size: {args.imgsz}")
+    
+    # Process the batch
+    results = process_batch(
+        input_dir,
+        img_filter,
+        output_dir,
+        datetime_prefix,
+        args.box_threshold,
+        args.iou_threshold,
+        args.use_paddleocr,
+        args.imgsz
+    )
+    
+    # Save summary
+    save_batch_summary(results, output_dir, datetime_prefix)
+    
+    print("\nBatch processing completed!")
+    return results
+
 def main():
     """
     Main function that loops through different box and IOU threshold values
@@ -506,10 +520,13 @@ def main():
     print("Testing box_threshold and iou_threshold values from 0.01 to 0.50")
     
     # Define the range for testing
-    min_threshold = 0.01
-    max_threshold = 0.50
+    min_threshold = 0.50
+    max_threshold = 1.0
     step = 0.05  # You can adjust this step size
-    
+
+    image_filter="TSS-TC-16-screen8.png"
+    image_path="/Users/fischtech/repos/github/ollamapoc/image/TSS/"
+    out_path="/Users/fischtech/repos/github/OmniParser/output"
     # Create a list of threshold values to test
     threshold_values = [round(min_threshold + i * step, 2) for i in range(int((max_threshold - min_threshold) / step) + 1)]
     
@@ -529,7 +546,11 @@ def main():
             print(f"{'='*60}")
             
             try:
-                results = run_omniparse(box=box_threshold, iou=iou_threshold)
+                results = run_omniparse(img_path=image_path,
+                img_filter=image_filter,
+                out_dir=out_path,
+                box=box_threshold, 
+                iou=iou_threshold)
                 
                 # Add threshold information to results
                 if results is not None:
