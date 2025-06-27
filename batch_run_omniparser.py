@@ -520,12 +520,12 @@ def main():
     print("Testing box_threshold and iou_threshold values from 0.01 to 0.50")
     
     # Define the range for testing
-    min_threshold = 0.50
-    max_threshold = 1.0
+    min_threshold = 0.10
+    max_threshold = 0.10
     step = 0.05  # You can adjust this step size
 
-    image_filter="TSS-TC-16-screen8.png"
-    image_path="/Users/fischtech/repos/github/ollamapoc/image/TSS/"
+    image_filter="*.png"
+    image_path="/Users/fischtech/repos/github/OmniParser/imgs/TSS-TC-183-Copy Module Data_t08_a300_250625_144719"
     out_path="/Users/fischtech/repos/github/OmniParser/output"
     # Create a list of threshold values to test
     threshold_values = [round(min_threshold + i * step, 2) for i in range(int((max_threshold - min_threshold) / step) + 1)]
