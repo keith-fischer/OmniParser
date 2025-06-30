@@ -97,11 +97,203 @@ download 'model_v1_5.pt' from https://huggingface.co/microsoft/OmniParser/tree/m
 ## Examples:
 We put together a few simple examples in the demo.ipynb. 
 
+## Debug and Testing
+All debugging, testing, demo, and troubleshooting scripts are located in the `/debug` folder. This includes:
+- OCR engine testing and comparison scripts
+- Gradio demo applications
+- Batch processing scripts
+- Troubleshooting tools
+- Interactive Jupyter notebooks
+
+See [debug/README.md](debug/README.md) for comprehensive documentation of all testing scripts and development history.
+
 ## Gradio Demo
 To run gradio demo, simply run:
 ```python
 python gradio_demo.py
 ```
+
+## OCR Engine and Fallback System
+
+OmniParser includes a robust three-tier OCR fallback system:
+
+### **Available OCR Engines:**
+1. **EasyOCR** (Primary) - Best balance of accuracy and ease of use
+2. **PaddleOCR** (Secondary) - High accuracy, good for complex layouts  
+3. **Tesseract** (Tertiary) - Reliable fallback for clean documents
+
+### **Testing OCR Engines:**
+```bash
+python test_ocr_fallback.py
+```
+
+This will test all available engines and provide a comparison table of word counts and element counts.
+
+#### **Example Test Results:**
+
+**Test Image:** `imgs/tsserrors/frame_0034.png`
+
+**OCR Engine Comparison Table:**
+
+| Metric      |   easyocr   |  paddleocr  |  tesseract  |
+|-------------|:-----------:|:-----------:|:-----------:|
+| Word Count  |     54      |     54      |     54      |
+| Elem Count  |     33      |     33      |     33      |
+
+**Performance Results:**
+- **EasyOCR**: 1.90s processing time
+- **PaddleOCR**: 1.01s processing time (fastest)
+- **Tesseract**: 1.00s processing time (fastest)
+
+**Key Observations:**
+- All three engines detected exactly the same number of text elements (33) and total words (54)
+- Sample texts detected: "UCSan", "Maintain object", "Menu"
+- Fallback system successfully used Tesseract when EasyOCR and PaddleOCR failed in fallback test
+- Results saved to `ocr_easyocr.json`, `ocr_paddleocr.json`, and `ocr_tesseract.json` for detailed inspection
+
+## Advanced OCR Improvements
+
+For challenging GUI/business form images with difficult text conditions (light on dark backgrounds, low contrast, colored text), additional preprocessing can significantly improve OCR accuracy.
+
+### **Current OCR Engine Capabilities**
+
+**EasyOCR Built-in Processing:**
+- Automatic image resizing to optimal size
+- Basic normalization and RGB conversion
+- Multi-scale text detection
+- CRAFT text detection + CRNN recognition
+
+**Limitations:**
+- Generic optimization, not specific to GUI forms
+- Fixed preprocessing for all images
+- Limited handling of extreme contrast cases
+- No advanced color space analysis
+
+### **Recommended Preprocessing Techniques**
+
+#### **1. Multi-Scale Processing**
+- **Upscaling**: 2x-4x resolution increase (not just 2-3x)
+- **Rationale**: OCR engines work better with higher resolution, especially for small UI text
+- **Implementation**: Use Lanczos or cubic interpolation for best quality
+
+#### **2. Advanced Contrast Enhancement**
+- **Adaptive Histogram Equalization (CLAHE)**: Better than simple histogram equalization
+- **Multi-channel processing**: Process RGB channels separately, then combine
+- **Local contrast enhancement**: Apply contrast enhancement in sliding windows
+- **Gamma correction**: Adjust gamma based on image brightness distribution
+
+#### **3. Color Space Transformations**
+- **HSV/LAB conversion**: Better for color-based text detection
+- **Channel separation**: Extract the channel with highest text-background contrast
+- **Color clustering**: Use K-means to identify text vs background colors
+
+#### **4. Advanced Thresholding Techniques**
+- **Otsu's method**: Automatic threshold selection
+- **Adaptive thresholding**: Different thresholds for different image regions
+- **Multi-thresholding**: Apply multiple thresholds and combine results
+- **Edge-based thresholding**: Use Canny edges to guide threshold selection
+
+#### **5. Sharpening and Noise Reduction**
+- **Unsharp masking**: More controlled than simple sharpening
+- **Bilateral filtering**: Reduce noise while preserving edges
+- **Morphological operations**: Clean up text regions
+
+#### **6. Text-Specific Enhancements**
+- **Stroke width transform**: Identify text-like regions
+- **MSER (Maximally Stable Extremal Regions)**: Detect text regions
+- **Connected component analysis**: Group related text elements
+
+### **Implementation Strategy**
+
+#### **Phase 1: Basic Enhancement**
+1. Upscale image 2-4x
+2. Convert to grayscale using luminance formula
+3. Apply CLAHE
+4. Add to OCR engine as preprocessing step
+
+#### **Phase 2: Advanced Processing**
+1. Multi-channel analysis
+2. Adaptive thresholding
+3. Morphological operations
+4. Edge-preserving smoothing
+
+#### **Phase 3: Intelligent Selection**
+1. Try multiple preprocessing approaches
+2. Use OCR confidence scores to select best result
+3. Combine results from different preprocessing methods
+
+### **Specific Techniques for GUI/Business Forms**
+
+#### **For Light Text on Dark Background:**
+- Invert image first
+- Use high-pass filtering
+- Apply aggressive contrast enhancement
+
+#### **For Low Contrast Text:**
+- CLAHE with large window size
+- Multi-scale contrast enhancement
+- Edge enhancement before OCR
+
+#### **For Colored Text:**
+- Channel separation (R, G, B, H, S, V)
+- Color clustering to identify text colors
+- Adaptive thresholding per color channel
+
+### **Recommended Preprocessing Pipeline**
+
+```python
+def preprocess_for_ocr(image):
+    # 1. Upscale (2-4x)
+    # 2. Convert to grayscale using best channel
+    # 3. Apply CLAHE
+    # 4. Adaptive thresholding
+    # 5. Morphological cleanup
+    # 6. Sharpening
+    pass
+```
+
+### **Hybrid Approach**
+
+```python
+def extract_text_hybrid(image):
+    # Try EasyOCR on original image
+    result_original = easyocr.extract_text(image)
+    
+    # Apply preprocessing
+    preprocessed = preprocess_image(image)
+    result_preprocessed = easyocr.extract_text(preprocessed)
+    
+    # Compare confidence scores and return best result
+    return best_result(result_original, result_preprocessed)
+```
+
+### **Performance Considerations**
+
+- **Memory usage**: Upscaling 4x increases memory 16x
+- **Processing time**: Preprocessing adds 0.5-2s per image
+- **Quality vs speed tradeoff**: More preprocessing = better accuracy but slower
+
+### **Recommended Libraries**
+
+- **OpenCV**: Core image processing
+- **scikit-image**: Advanced morphological operations
+- **PIL/Pillow**: Basic image operations
+- **numpy**: Array operations for custom algorithms
+
+### **When Additional Preprocessing Helps**
+
+**EasyOCR + Preprocessing is Beneficial When:**
+1. **Extreme contrast issues**: Very light text on dark backgrounds
+2. **Color-specific problems**: Text in specific colors that blend with background
+3. **Noise and artifacts**: Screenshots with compression artifacts
+4. **Small text**: UI elements that are too small even after EasyOCR's scaling
+5. **Mixed content**: Images with both text and graphics
+
+**Real-World Examples:**
+- **Dark mode applications**: White text on dark backgrounds
+- **Low contrast forms**: Gray text on light gray backgrounds
+- **Colored UI elements**: Blue text on blue-tinted backgrounds
+- **Compressed screenshots**: JPEG artifacts affecting text clarity
 
 ## Model Weights License
 For the model checkpoints on huggingface model hub, please note that icon_detect model is under AGPL license since it is a license inherited from the original yolo model. And icon_caption_blip2 & icon_caption_florence is under MIT license. Please refer to the LICENSE file in the folder of each model: https://huggingface.co/microsoft/OmniParser.
